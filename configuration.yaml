@@ -53,6 +53,7 @@ mqtt:
 
 wemo:
   static: !include wemo_ips.yaml
+#   - 123.12.12.123
 
 climate:
   - platform: generic_thermostat
@@ -68,21 +69,7 @@ climate:
     ac_mode: true
     target_temp: 75
 
-zone:
-  name: Home
-  latitude: !secret home_latitude
-  longitude: !secret home_longitude
-  radius: 30
-  icon: mdi:home
-  track_ios: true
-
-zone 2:
-  name: Work
-  latitude: !secret work_latitude
-  longitude: !secret work_longitude
-  radius: 40
-  icon: mdi:keyboard
-  track_ios: true
+zone: !include zones.yaml
 
 script: !include scripts.yaml
 
@@ -94,16 +81,4 @@ group: !include groups.yaml
 
 automation: !include automations.yaml
 
-automation 2:
-  - alias: 'Turn on lights when home at night'
-    trigger:
-      platform: sun
-      event: sunset
-      offset: "-03:00:00"
-    condition:
-      condition: state
-      entity_id: group.all_devices
-      state: home
-    action:
-      service: homeassistant.turn_on
-      entity_id: ["light.living_room","light.kitchen"]
+automation custom: !include custom_automations.yaml

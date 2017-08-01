@@ -1,0 +1,13 @@
+- name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: 30
+  icon: mdi:home
+  track_ios: true
+
+- name: Work
+  latitude: !secret work_latitude
+  longitude: !secret work_longitude
+  radius: 40
+  icon: mdi:keyboard
+  track_ios: true

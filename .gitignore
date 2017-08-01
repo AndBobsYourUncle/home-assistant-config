@@ -1,0 +1,13 @@
+*
+
+!.gitignore
+
+!*.yaml
+
+._*.yaml
+
+secrets.yaml
+
+wemo_ips.yaml
+
+!custom_components/*/

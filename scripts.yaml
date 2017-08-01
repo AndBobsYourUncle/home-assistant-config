@@ -1,0 +1,30 @@
+switch_to_ac:
+  sequence:
+    - alias: Turn off swamp cooler
+      service: switch.turn_off
+      data:
+        entity_id: switch.swamp_cooler
+    - alias: Turn AC On
+      service: switch.turn_on
+      data:
+        entity_id: switch.air_conditioning
+    - alias: Turn Swamp Thermo Off
+      service: climate.set_operation_mode
+      data:
+        entity_id: climate.swamp_thermostat
+        operation_mode: 'off'
+switch_to_swamp:
+  sequence:
+    - alias: Turn on swamp cooler
+      service: switch.turn_on
+      data:
+        entity_id: switch.swamp_cooler
+    - alias: Turn AC Off
+      service: switch.turn_off
+      data:
+        entity_id: switch.air_conditioning
+    - alias: Turn Swamp Thermo On
+      service: climate.set_operation_mode
+      data:
+        entity_id: climate.swamp_thermostat
+        operation_mode: 'auto'

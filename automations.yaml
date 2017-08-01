@@ -1,0 +1,79 @@
+- action:
+  - alias: Turn Off All Lights
+    data:
+      entity_id:
+      - light.living_room
+      - light.bathroom
+      - light.kitchen
+      - light.bedroom
+    service: light.turn_off
+  - alias: Notify Lights are Off
+    data:
+      message: All the lights have been turned off.
+    service: notify.ios_nicholass_iphone
+  alias: Leaving Home
+  id: '1496543627863'
+  trigger:
+  - entity_id: device_tracker.nicholass_iphone
+    from: home
+    platform: state
+    to: not_home
+- action:
+  - alias: Turn On Main Lights
+    data:
+      brightness: '150'
+      entity_id:
+      - light.living_room
+      - light.kitchen
+    service: light.turn_on
+  - alias: Notify Light is On
+    data:
+      message: Living room light has been turned on.
+    service: notify.ios_nicholass_iphone
+  alias: Getting Home at Night
+  id: '1496612012431'
+  trigger:
+  - entity_id: device_tracker.nicholass_iphone
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - after: sunset
+    after_offset: '-3:00:00'
+    condition: sun
+- action:
+  - data:
+      brightness: 150
+      entity_id: light.kitchen
+    service: light.turn_on
+  alias: Stay Dim Kitchen
+  id: '1496905393878'
+  trigger:
+  - entity_id: light.kitchen_light_1
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      brightness: 150
+      entity_id: light.bathroom_light
+    service: light.turn_on
+  alias: Stay Dim Bathroom
+  id: '1496908871460'
+  trigger:
+  - entity_id: light.bathroom_light
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      brightness: 150
+      entity_id: light.living_room_light
+    service: light.turn_on
+  alias: Stay Dim Living Room
+  id: '1496968819347'
+  trigger:
+  - entity_id: light.living_room_light
+    from: 'off'
+    platform: state
+    to: 'on'

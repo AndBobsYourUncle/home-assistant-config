@@ -1,0 +1,47 @@
+default_view:
+  view: true
+  entities:
+  - group.cooling
+  - group.living_room
+  - group.bedroom
+  - group.kitchen
+  - group.bathroom
+  - sun.sun
+  - device_tracker.nicholass_iphone
+  - sensor.outside_temperature
+  - sensor.outside_humidity
+  name: default_view
+cooling:
+  name: Cooling
+  entities:
+  - climate.swamp_thermostat
+  - climate.swamp_efficiency
+  - switch.swamp_cooler
+  - switch.air_conditioning
+  - switch.use_ac_instead
+bathroom:
+  name: Bathroom
+  entities:
+  - light.bathroom_light
+bedroom:
+  name: Bedroom
+  entities:
+  - switch.bedroom_ac
+  - sensor.bedroom_temperature
+  - sensor.bedroom_door
+  - light.bedroom_light
+kitchen:
+  name: Kitchen
+  entities:
+  - switch.kitchen_ac
+  - sensor.kitchen_temperature
+  - sensor.kitchen_door
+  - light.kitchen_light_1
+  - light.kitchen_light_2
+living_room:
+  name: Living Room
+  entities:
+  - switch.living_room_ac
+  - sensor.living_room_temperature
+  - sensor.living_room_door
+  - light.living_room_light

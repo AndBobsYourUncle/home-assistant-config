@@ -1,0 +1,109 @@
+homeassistant:
+  name: Nick's House
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  unit_system: imperial
+  time_zone: America/Los_Angeles
+
+  customize:
+    sensor.ipad_battery_level:
+      hidden: true
+    sensor.ipad_battery_state:
+      hidden: true
+
+frontend:
+
+config:
+
+http:
+  api_password: !secret api_password
+  base_url: !secret host_uri
+
+updater:
+
+discovery:
+
+conversation:
+
+history:
+
+logbook:
+
+sun:
+
+tts:
+  platform: google
+
+ios:
+
+device_tracker:
+
+notify:
+  - name: iOSApp
+    platform: ios
+    target: !secret nicks_ios_push_target
+
+light:
+  platform: hue
+  host: !secret hue_hub_ip
+
+mqtt:
+  broker: mqtt
+
+wemo:
+  static: !include wemo_ips.yaml
+
+climate:
+  - platform: generic_thermostat
+    name: Swamp Thermostat
+    heater: switch.swamp_cooler
+    target_sensor: sensor.house
+    ac_mode: true
+    target_temp: 68
+  - platform: generic_thermostat
+    name: Swamp Efficiency
+    heater: switch.use_ac_instead
+    target_sensor: sensor.swamp_efficiency_temperature
+    ac_mode: true
+    target_temp: 75
+
+zone:
+  name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: 30
+  icon: mdi:home
+  track_ios: true
+
+zone 2:
+  name: Work
+  latitude: !secret work_latitude
+  longitude: !secret work_longitude
+  radius: 40
+  icon: mdi:keyboard
+  track_ios: true
+
+script: !include scripts.yaml
+
+switch: !include switches.yaml
+
+sensor: !include sensors.yaml
+
+group: !include groups.yaml
+
+automation: !include automations.yaml
+
+automation 2:
+  - alias: 'Turn on lights when home at night'
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "-03:00:00"
+    condition:
+      condition: state
+      entity_id: group.all_devices
+      state: home
+    action:
+      service: homeassistant.turn_on
+      entity_id: ["light.living_room","light.kitchen"]

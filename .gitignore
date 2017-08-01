@@ -10,4 +10,8 @@ secrets.yaml
 
 wemo_ips.yaml
 
-!custom_components/*/
+!custom_components/
+
+!custom_components/*
+
+!custom_components/sensor/*
